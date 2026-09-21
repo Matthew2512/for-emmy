@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wishlist 🎁</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="scene">
+
+    <section class="card" id="wishlist-card">
+      <p class="eyebrow">just for you</p>
+      <h1>Our Wishlist</h1>
+      <p class="subtext">Add anything you're wishing for, big or small. It saves here for both of us to see.</p>
+
+      <form class="wishlist-form" id="wishlist-form">
+        <input type="text" id="wishlist-input" placeholder="What do you want? (e.g. cozy socks)" autocomplete="off" required />
+        <input type="url" id="wishlist-link-input" placeholder="Link (optional)" autocomplete="off" />
+        <button type="submit">Add to wishlist</button>
+      </form>
+
+      <p class="wishlist-status" id="wishlist-status">Connecting...</p>
+
+      <div class="wishlist-items" id="wishlist-items">
+        <p class="wishlist-empty">Nothing here yet.</p>
+      </div>
+
+      <a href="index.html" class="home-link">← back home</a>
+    </section>
+
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="wishlist.js"></script>
+</body>
+</html>

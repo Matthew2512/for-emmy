@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>For You 💚</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <a href="wishlist.html" class="fab fab-left" title="Wishlist">🎁</a>
+  <a href="stories.html" class="fab fab-right" title="Bedtime stories">🌙</a>
+
+  <div class="scene">
+
+    <!-- Card 1: ask how she's feeling -->
+    <section class="card" id="mood-card">
+      <p class="eyebrow">hi emmy</p>
+      <h1>How are you feeling right now?</h1>
+      <p class="subtext">Pick whatever you are feeling, and I'll be right there with you.</p>
+
+      <div class="mood-options">
+        <button class="mood-btn" data-mood="happy">
+          <span class="mood-emoji">😊</span>
+          <span class="mood-label">Happy</span>
+        </button>
+        <button class="mood-btn" data-mood="sad">
+          <span class="mood-emoji">🥲</span>
+          <span class="mood-label">Sad</span>
+        </button>
+        <button class="mood-btn" data-mood="missing">
+          <span class="mood-emoji">🫶</span>
+          <span class="mood-label">Missing You</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Card 2: shows the matching video -->
+    <section class="card card--video" id="video-card">
+      <p class="eyebrow" id="video-eyebrow">for when you're feeling</p>
+      <h2 id="video-title">happy</h2>
+
+      <div class="video-wrap">
+        <video id="mood-video" controls playsinline>
+          Sorry, your browser can't play this video.
+        </video>
+      </div>
+
+      <button class="back-btn" id="back-btn">← pick a different feeling</button>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

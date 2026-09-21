@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bedtime Stories 🌙</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="scene">
+
+    <!-- Card 1: pick a story -->
+    <section class="card" id="story-picker-card">
+      <p class="eyebrow">goodnight love</p>
+      <h1>Pick a bedtime story</h1>
+      <p class="subtext">Close your eyes and press play whenever you're ready.</p>
+
+      <div class="mood-options" id="story-options">
+        <!-- story buttons are generated from STORIES in stories.js -->
+      </div>
+
+      <a href="index.html" class="home-link">← back home</a>
+    </section>
+
+    <!-- Card 2: audio player for the chosen story -->
+    <section class="card card--video" id="story-player-card">
+      <p class="eyebrow">now playing</p>
+      <h2 id="story-title">a story</h2>
+
+      <div class="audio-wrap">
+        <audio id="story-audio" controls>
+          Sorry, your browser can't play this audio.
+        </audio>
+      </div>
+
+      <button class="back-btn" id="story-back-btn">← pick a different story</button>
+    </section>
+
+  </div>
+
+  <script src="stories.js"></script>
+</body>
+</html>
