@@ -5,10 +5,11 @@
 // These values are safe to leave visible in client-side code -- Firebase
 // security comes from your Firestore rules, not from hiding this config.
 const firebaseConfig = {
-  apiKey: "PASTE_YOUR_API_KEY",
-  authDomain: "PASTE_YOUR_PROJECT.firebaseapp.com",
-  projectId: "PASTE_YOUR_PROJECT_ID",
-  storageBucket: "PASTE_YOUR_PROJECT.appspot.com",
-  messagingSenderId: "PASTE_YOUR_SENDER_ID",
-  appId: "PASTE_YOUR_APP_ID",
+  apiKey: "AIzaSyCUUjcCrOISN0uP2syKO8OPxo6P_lm0byA",
+  authDomain: "for-emmy.firebaseapp.com",
+  projectId: "for-emmy",
+  storageBucket: "for-emmy.firebasestorage.app",
+  messagingSenderId: "824244021796",
+  appId: "1:824244021796:web:a7ba2cea4ce8698de9c6b1",
+  measurementId: "G-MMKKY2T4JQ",
 };
