@@ -318,6 +318,20 @@ h2 {
   background: var(--rose-brown);
 }
 
+.wishlist-form input[type="file"] {
+  padding: 6px 4px;
+  border: none;
+  background: none;
+  font-size: 13px;
+}
+
+.wishlist-image-preview {
+  width: 100%;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
 .wishlist-items {
   display: flex;
   flex-direction: column;
@@ -353,6 +367,14 @@ h2 {
   accent-color: var(--blush-deep);
   flex-shrink: 0;
   cursor: pointer;
+}
+
+.wishlist-item-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .wishlist-item-text {

@@ -5,8 +5,51 @@
 const form = document.getElementById("wishlist-form");
 const textInput = document.getElementById("wishlist-input");
 const linkInput = document.getElementById("wishlist-link-input");
+const imageInput = document.getElementById("wishlist-image-input");
+const imagePreview = document.getElementById("wishlist-image-preview");
 const statusEl = document.getElementById("wishlist-status");
 const itemsEl = document.getElementById("wishlist-items");
+
+const MAX_IMAGE_DIMENSION = 600;
+let pendingImageDataUrl = null;
+
+imageInput.addEventListener("change", () => {
+  const file = imageInput.files[0];
+  pendingImageDataUrl = null;
+  imagePreview.hidden = true;
+
+  if (!file) return;
+
+  resizeImage(file, MAX_IMAGE_DIMENSION).then((dataUrl) => {
+    pendingImageDataUrl = dataUrl;
+    imagePreview.src = dataUrl;
+    imagePreview.hidden = false;
+  });
+});
+
+function resizeImage(file, maxDimension) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    const reader = new FileReader();
+    reader.onload = () => {
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxDimension || height > maxDimension) {
+          const scale = maxDimension / Math.max(width, height);
+          width = Math.round(width * scale);
+          height = Math.round(height * scale);
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL("image/jpeg", 0.6));
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
 
 const isConfigured =
   typeof firebaseConfig !== "undefined" &&
@@ -43,6 +86,7 @@ if (!isConfigured) {
       .add({
         text,
         link: link || null,
+        imageDataUrl: pendingImageDataUrl || null,
         done: false,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       })
@@ -53,6 +97,9 @@ if (!isConfigured) {
 
     textInput.value = "";
     linkInput.value = "";
+    imageInput.value = "";
+    pendingImageDataUrl = null;
+    imagePreview.hidden = true;
     textInput.focus();
   });
 
@@ -83,6 +130,14 @@ if (!isConfigured) {
     checkbox.addEventListener("change", () => {
       wishlistRef.doc(id).update({ done: checkbox.checked }).catch((err) => console.error(err));
     });
+
+    if (data.imageDataUrl) {
+      const thumb = document.createElement("img");
+      thumb.className = "wishlist-item-thumb";
+      thumb.src = data.imageDataUrl;
+      thumb.alt = data.text;
+      row.appendChild(thumb);
+    }
 
     const textSpan = document.createElement("span");
     textSpan.className = "wishlist-item-text";
