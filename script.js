@@ -17,6 +17,11 @@ const MOOD_VIDEOS = {
     label: "missing me",
     src: "videos/missing.mp4",
   },
+  stressed: {
+    eyebrow: "for when you're feeling",
+    label: "stressed",
+    src: "videos/stressed.mp4",
+  },
 };
 
 const moodCard = document.getElementById("mood-card");
