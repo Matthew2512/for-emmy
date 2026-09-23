@@ -34,21 +34,14 @@
       <div class="luckydraw-history" id="luckydraw-history"></div>
 
       <div class="luckydraw-edit">
-        <button type="button" class="back-btn" id="edit-toggle">✏️ edit</button>
+        <button type="button" class="back-btn" id="reset-spin-btn">↺ reset this month's spin</button>
 
-        <form class="wishlist-form" id="edit-lock-form" hidden>
-          <input type="password" id="edit-password-input" placeholder="Password" autocomplete="off" required />
-          <button type="submit">Unlock</button>
-          <p class="wishlist-status" id="edit-lock-error" hidden>That's not it — try again.</p>
+        <form class="wishlist-form" id="reset-lock-form" hidden>
+          <input type="password" id="reset-password-input" placeholder="Password to reset" autocomplete="off" required />
+          <button type="submit">Confirm reset</button>
         </form>
 
-        <div class="wishlist-form" id="edit-panel" hidden>
-          <p class="eyebrow">prizes (one per line)</p>
-          <textarea id="prizes-input" rows="8"></textarea>
-          <button type="button" id="save-prizes-btn">Save prizes</button>
-          <button type="button" class="reset-spin-btn" id="reset-spin-btn">Reset this month's spin</button>
-          <p class="wishlist-status" id="edit-status"></p>
-        </div>
+        <p class="wishlist-status" id="reset-status"></p>
       </div>
 
       <a href="index.html" class="home-link">← back home</a>

@@ -1,10 +1,9 @@
 // Monthly lucky draw wheel. One spin per calendar month, saved to Firestore
 // (collection "luckydraw", one doc per month keyed like "2026-09") so both of
-// us see the same result. The "_settings" doc in the same collection holds the
-// prize list once it's been edited from the page.
+// us see the same result.
 
-// Used until prizes are edited from the page's edit panel.
-const DEFAULT_PRIZES = [
+// Edit these to change what's on the wheel.
+const PRIZES = [
   "Dinner date 🍝",
   "Movie night 🎬",
   "Massage 💆",
@@ -15,9 +14,9 @@ const DEFAULT_PRIZES = [
   "Picnic day 🧺",
 ];
 
-// SHA-256 of the edit password, so the password itself isn't in the source.
-const EDIT_PASSWORD_HASH = "b22439c6e0b62a7d05b8c7bc43035df71c0758124967ce0a3fdf6e137700bac3";
-const SETTINGS_DOC_ID = "_settings";
+// SHA-256 of the password needed to reset a month's spin, so the password
+// itself isn't in the source.
+const RESET_PASSWORD_HASH = "b22439c6e0b62a7d05b8c7bc43035df71c0758124967ce0a3fdf6e137700bac3";
 const MONTH_KEY_PATTERN = /^\d{4}-\d{2}$/;
 
 const SEGMENT_COLORS = ["#FFD6E0", "#FFB6C1", "#FFF8F5", "#F7A1B8"];
@@ -29,21 +28,15 @@ const monthEl = document.getElementById("luckydraw-month");
 const resultEl = document.getElementById("luckydraw-result");
 const statusEl = document.getElementById("luckydraw-status");
 const historyEl = document.getElementById("luckydraw-history");
-const editToggle = document.getElementById("edit-toggle");
-const editLockForm = document.getElementById("edit-lock-form");
-const editPasswordInput = document.getElementById("edit-password-input");
-const editLockError = document.getElementById("edit-lock-error");
-const editPanel = document.getElementById("edit-panel");
-const prizesInput = document.getElementById("prizes-input");
-const savePrizesBtn = document.getElementById("save-prizes-btn");
 const resetSpinBtn = document.getElementById("reset-spin-btn");
-const editStatus = document.getElementById("edit-status");
+const resetLockForm = document.getElementById("reset-lock-form");
+const resetPasswordInput = document.getElementById("reset-password-input");
+const resetStatus = document.getElementById("reset-status");
 
 const now = new Date();
 const monthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
 monthEl.textContent = formatMonth(monthKey);
 
-let prizes = DEFAULT_PRIZES.slice();
 let currentRotation = 0;
 let spinning = false;
 let latestDocs = [];
@@ -57,11 +50,11 @@ function drawWheel() {
   const size = canvas.width;
   const center = size / 2;
   const radius = center - 8;
-  const segmentAngle = (Math.PI * 2) / prizes.length;
+  const segmentAngle = (Math.PI * 2) / PRIZES.length;
 
   ctx.clearRect(0, 0, size, size);
 
-  prizes.forEach((prize, i) => {
+  PRIZES.forEach((prize, i) => {
     // Segment 0 starts at the top (12 o'clock) and goes clockwise.
     const start = -Math.PI / 2 + i * segmentAngle;
     const end = start + segmentAngle;
@@ -98,7 +91,7 @@ function drawWheel() {
 
 // Rotates the wheel so the given prize ends up under the pointer at the top.
 function spinTo(index) {
-  const segmentDeg = 360 / prizes.length;
+  const segmentDeg = 360 / PRIZES.length;
   const jitter = (Math.random() - 0.5) * segmentDeg * 0.7;
   const targetAngle = (index + 0.5) * segmentDeg + jitter;
   const base = currentRotation - (currentRotation % 360);
@@ -111,36 +104,18 @@ function spinTo(index) {
 }
 
 function showPrizeInstantly(prize) {
-  const index = prizes.indexOf(prize);
+  const index = PRIZES.indexOf(prize);
   if (index === -1) return;
-  const segmentDeg = 360 / prizes.length;
+  const segmentDeg = 360 / PRIZES.length;
   currentRotation = -(index + 0.5) * segmentDeg;
   canvas.style.transition = "none";
   canvas.style.transform = `rotate(${currentRotation}deg)`;
 }
 
-// --- edit panel (password protected) ---
-
-editToggle.addEventListener("click", () => {
-  editLockForm.hidden = !editLockForm.hidden;
-  if (!editLockForm.hidden) editPasswordInput.focus();
-});
-
-editLockForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  sha256(editPasswordInput.value).then((hash) => {
-    if (hash !== EDIT_PASSWORD_HASH) {
-      editLockError.hidden = false;
-      editPasswordInput.value = "";
-      editPasswordInput.focus();
-      return;
-    }
-    editLockError.hidden = true;
-    editLockForm.hidden = true;
-    editToggle.hidden = true;
-    editPanel.hidden = false;
-    prizesInput.value = prizes.join("\n");
-  });
+resetSpinBtn.addEventListener("click", () => {
+  resetLockForm.hidden = !resetLockForm.hidden;
+  resetStatus.textContent = "";
+  if (!resetLockForm.hidden) resetPasswordInput.focus();
 });
 
 function sha256(text) {
@@ -150,8 +125,6 @@ function sha256(text) {
       .join("")
   );
 }
-
-// --- Firestore ---
 
 const isConfigured =
   typeof firebaseConfig !== "undefined" &&
@@ -170,7 +143,6 @@ if (!isConfigured) {
     (snapshot) => {
       statusEl.textContent = "Synced live ✓";
       latestDocs = snapshot.docs;
-      applySettings();
       if (!spinning) render(firstLoad);
       firstLoad = false;
     },
@@ -186,8 +158,8 @@ if (!isConfigured) {
     spinBtn.disabled = true;
     resultEl.textContent = "";
 
-    const index = Math.floor(Math.random() * prizes.length);
-    const prize = prizes[index];
+    const index = Math.floor(Math.random() * PRIZES.length);
+    const prize = PRIZES[index];
 
     // Saved before the wheel stops so leaving mid-spin doesn't give a free re-spin.
     drawsRef
@@ -204,47 +176,28 @@ if (!isConfigured) {
     });
   });
 
-  savePrizesBtn.addEventListener("click", () => {
-    const newPrizes = prizesInput.value
-      .split("\n")
-      .map((line) => line.trim())
-      .filter(Boolean);
+  resetLockForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    sha256(resetPasswordInput.value).then((hash) => {
+      resetPasswordInput.value = "";
 
-    if (newPrizes.length < 2) {
-      editStatus.textContent = "Add at least 2 prizes.";
-      return;
-    }
+      if (hash !== RESET_PASSWORD_HASH) {
+        resetStatus.textContent = "That's not it — try again.";
+        resetPasswordInput.focus();
+        return;
+      }
 
-    drawsRef
-      .doc(SETTINGS_DOC_ID)
-      .set({ prizes: newPrizes })
-      .then(() => (editStatus.textContent = "Prizes saved ✓"))
-      .catch((err) => {
-        editStatus.textContent = "Couldn't save prizes — try again.";
-        console.error(err);
-      });
+      resetLockForm.hidden = true;
+      drawsRef
+        .doc(monthKey)
+        .delete()
+        .then(() => (resetStatus.textContent = "This month's spin was reset ✓"))
+        .catch((err) => {
+          resetStatus.textContent = "Couldn't reset — try again.";
+          console.error(err);
+        });
+    });
   });
-
-  resetSpinBtn.addEventListener("click", () => {
-    drawsRef
-      .doc(monthKey)
-      .delete()
-      .then(() => (editStatus.textContent = "This month's spin was reset ✓"))
-      .catch((err) => {
-        editStatus.textContent = "Couldn't reset — try again.";
-        console.error(err);
-      });
-  });
-}
-
-function applySettings() {
-  const settings = latestDocs.find((doc) => doc.id === SETTINGS_DOC_ID);
-  const saved = settings && settings.data().prizes;
-  const next = Array.isArray(saved) && saved.length >= 2 ? saved : DEFAULT_PRIZES;
-
-  if (next.join("\n") === prizes.join("\n")) return;
-  prizes = next.slice();
-  drawWheel();
 }
 
 function render(isFirstLoad) {
