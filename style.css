@@ -480,13 +480,25 @@ h2 {
   cursor: default;
 }
 
-.luckydraw-result {
+.luckydraw-prize-box {
+  margin: 20px 0 8px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  border: 2px solid var(--blush-mid);
+  background: linear-gradient(135deg, #ffffff, var(--blush-light));
+  animation: cardIn 0.5s ease;
+}
+
+.luckydraw-prize-box .eyebrow {
+  margin-bottom: 6px;
+}
+
+.luckydraw-prize {
   font-family: 'Playfair Display', serif;
   font-style: italic;
-  font-size: 20px;
+  font-size: 22px;
   color: var(--rose-brown);
-  margin: 16px 0 8px;
-  min-height: 1.4em;
+  word-break: break-word;
 }
 
 .luckydraw-history {

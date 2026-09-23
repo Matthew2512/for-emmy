@@ -25,7 +25,8 @@ const SPIN_DURATION_MS = 5000;
 const canvas = document.getElementById("wheel");
 const spinBtn = document.getElementById("spin-btn");
 const monthEl = document.getElementById("luckydraw-month");
-const resultEl = document.getElementById("luckydraw-result");
+const prizeBox = document.getElementById("luckydraw-prize-box");
+const prizeEl = document.getElementById("luckydraw-prize");
 const statusEl = document.getElementById("luckydraw-status");
 const historyEl = document.getElementById("luckydraw-history");
 const resetSpinBtn = document.getElementById("reset-spin-btn");
@@ -156,7 +157,7 @@ if (!isConfigured) {
     if (spinning) return;
     spinning = true;
     spinBtn.disabled = true;
-    resultEl.textContent = "";
+    prizeBox.hidden = true;
 
     const index = Math.floor(Math.random() * PRIZES.length);
     const prize = PRIZES[index];
@@ -207,12 +208,13 @@ function render(isFirstLoad) {
     const { prize } = thisMonth.data();
     spinBtn.disabled = true;
     spinBtn.textContent = "Come back next month 💗";
-    resultEl.textContent = `This month you won: ${prize}`;
+    prizeEl.textContent = prize;
+    prizeBox.hidden = false;
     if (isFirstLoad) showPrizeInstantly(prize);
   } else {
     spinBtn.disabled = false;
     spinBtn.textContent = "Spin!";
-    resultEl.textContent = "";
+    prizeBox.hidden = true;
   }
 
   renderHistory();
