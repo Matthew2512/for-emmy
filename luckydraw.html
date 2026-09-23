@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lucky Draw 🎡</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icon-192.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<meta name="theme-color" content="#E8779A" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="For Emmy" />
+</head>
+<body>
+
+  <div class="scene">
+
+    <section class="card" id="luckydraw-card">
+      <p class="eyebrow" id="luckydraw-month">this month</p>
+      <h1>Monthly Lucky Draw</h1>
+      <p class="subtext">One spin every month. Whatever it lands on, you get!</p>
+
+      <div class="wheel-wrap">
+        <div class="wheel-pointer"></div>
+        <canvas id="wheel" class="wheel" width="600" height="600"></canvas>
+      </div>
+
+      <button class="spin-btn" id="spin-btn" disabled>Spin!</button>
+      <p class="luckydraw-result" id="luckydraw-result"></p>
+      <p class="wishlist-status" id="luckydraw-status">Connecting...</p>
+
+      <div class="luckydraw-history" id="luckydraw-history"></div>
+
+      <a href="index.html" class="home-link">← back home</a>
+    </section>
+
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="luckydraw.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => navigator.serviceWorker.register("sw.js"));
+    }
+  </script>
+</body>
+</html>

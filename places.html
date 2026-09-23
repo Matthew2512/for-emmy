@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Date Spots 📍</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icon-192.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<meta name="theme-color" content="#E8779A" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="For Emmy" />
+</head>
+<body>
+
+  <div class="scene">
+
+    <section class="card card--wide" id="places-card">
+      <p class="eyebrow">for our dates</p>
+      <h1>Places to Visit</h1>
+      <p class="subtext">Save anywhere we want to go together. Tick it off once we've been!</p>
+
+      <form class="wishlist-form" id="places-form">
+        <input type="text" id="places-name-input" placeholder="Place name (e.g. that rooftop cafe)" autocomplete="off" required />
+        <input type="text" id="places-note-input" placeholder="Note or area (optional)" autocomplete="off" />
+        <input type="url" id="places-link-input" placeholder="Map or website link (optional)" autocomplete="off" />
+        <input type="file" id="places-image-input" accept="image/*" />
+        <img id="places-image-preview" class="wishlist-image-preview" hidden />
+        <button type="submit">Add place</button>
+      </form>
+
+      <p class="wishlist-status" id="places-status">Connecting...</p>
+
+      <div class="places-grid" id="places-grid">
+        <p class="wishlist-empty">No places yet.</p>
+      </div>
+
+      <a href="index.html" class="home-link">← back home</a>
+    </section>
+
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="places.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => navigator.serviceWorker.register("sw.js"));
+    }
+  </script>
+</body>
+</html>

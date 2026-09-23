@@ -1,14 +1,18 @@
-const CACHE_NAME = "for-emmy-v3";
+const CACHE_NAME = "for-emmy-v4";
 const CORE_FILES = [
   "index.html",
   "stories.html",
   "wishlist.html",
   "secret.html",
+  "luckydraw.html",
+  "places.html",
   "style.css",
   "script.js",
   "stories.js",
   "wishlist.js",
   "secret.js",
+  "luckydraw.js",
+  "places.js",
   "firebase-config.js",
   "manifest.json",
   "icon-192.png",

@@ -415,9 +415,209 @@ h2 {
   margin-bottom: 4px;
 }
 
+.fab-stack-4 {
+  right: 188px;
+}
+
+.fab-stack-5 {
+  right: 244px;
+}
+
+/* lucky draw */
+.wheel-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 1;
+  margin: 0 auto 24px;
+}
+
+.wheel {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 50%;
+  box-shadow: 0 12px 30px -10px rgba(232, 119, 154, 0.5);
+}
+
+.wheel-pointer {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 26px solid var(--rose-brown);
+  z-index: 1;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+}
+
+.spin-btn {
+  padding: 12px 36px;
+  border-radius: 14px;
+  border: none;
+  background: var(--blush-deep);
+  color: var(--cream);
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.spin-btn:hover:not(:disabled) {
+  background: var(--rose-brown);
+}
+
+.spin-btn:disabled {
+  background: var(--blush-mid);
+  cursor: default;
+}
+
+.luckydraw-result {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--rose-brown);
+  margin: 16px 0 8px;
+  min-height: 1.4em;
+}
+
+.luckydraw-history {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.luckydraw-history-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 2px solid var(--blush-light);
+  background: #ffffff;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.luckydraw-history-prize {
+  font-weight: 600;
+  text-align: right;
+}
+
+/* places to visit */
+.card--wide {
+  max-width: 640px;
+}
+
+.places-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 14px;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.places-grid .wishlist-empty {
+  grid-column: 1 / -1;
+}
+
+.place-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  border: 2px solid var(--blush-light);
+  background: #ffffff;
+  overflow: hidden;
+  transition: transform 0.25s ease;
+}
+
+.place-card:hover {
+  transform: translateY(-2px);
+}
+
+.place-card.is-visited {
+  opacity: 0.6;
+}
+
+.place-card-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.place-card-image--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  background: linear-gradient(135deg, var(--blush-light), var(--blush-mid));
+}
+
+.place-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  flex: 1;
+}
+
+.place-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--rose-brown);
+  word-break: break-word;
+}
+
+.place-card.is-visited .place-card-title {
+  text-decoration: line-through;
+}
+
+.place-card-note {
+  font-size: 13px;
+  color: #9a7d84;
+  word-break: break-word;
+}
+
+.place-card-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blush-deep);
+}
+
+.place-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+.place-card-visited {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.place-card-visited input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--blush-deep);
+  cursor: pointer;
+}
+
 @media (max-width: 480px) {
   .card {
     padding: 36px 24px;
+  }
+  .places-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
   }
   h1 {
     font-size: 24px;
