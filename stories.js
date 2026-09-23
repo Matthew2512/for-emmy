@@ -4,12 +4,12 @@
 const STORIES = {
   story1: {
     emoji: "🌙",
-    label: "Goodnight, Little Star",
+    label: "Cinderella",
     src: "audio/story1.mp4",
   },
   story2: {
     emoji: "🍃",
-    label: "The Sleepy Matcha Forest",
+    label: "Rapunzel",
     src: "audio/story2.mp4",
   },
   story3: {
