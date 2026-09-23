@@ -1,4 +1,4 @@
-const CACHE_NAME = "for-emmy-v7";
+const CACHE_NAME = "for-emmy-v9";
 const CORE_FILES = [
   "index.html",
   "stories.html",
@@ -39,18 +39,17 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
 
+  // Network first so a new deploy is picked up straight away (and pages never
+  // mix an old cached HTML with a new script); the cache is only for offline.
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      const network = fetch(event.request)
-        .then((response) => {
-          if (response.ok) {
-            const clone = response.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
-          }
-          return response;
-        })
-        .catch(() => cached);
-      return cached || network;
-    })
+    fetch(event.request)
+      .then((response) => {
+        if (response.ok) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+        }
+        return response;
+      })
+      .catch(() => caches.match(event.request))
   );
 });

@@ -21,6 +21,10 @@ const MONTH_KEY_PATTERN = /^\d{4}-\d{2}$/;
 
 const SEGMENT_COLORS = ["#FFD6E0", "#FFB6C1", "#FFF8F5", "#F7A1B8"];
 const SPIN_DURATION_MS = 5000;
+// Label placement on the 600px canvas: text ends LABEL_OUTER px from the
+// center and may be at most LABEL_MAX_WIDTH px long (clear of the hub).
+const LABEL_OUTER = 262;
+const LABEL_MAX_WIDTH = 190;
 
 const canvas = document.getElementById("wheel");
 const spinBtn = document.getElementById("spin-btn");
@@ -76,8 +80,8 @@ function drawWheel() {
     ctx.textAlign = "right";
     ctx.textBaseline = "middle";
     ctx.fillStyle = "#5c4247";
-    ctx.font = "600 24px Quicksand, sans-serif";
-    ctx.fillText(prize, radius - 24, 0, radius - 70);
+    ctx.font = fitFont(ctx, prize, LABEL_MAX_WIDTH);
+    ctx.fillText(prize, LABEL_OUTER, 0, LABEL_MAX_WIDTH);
     ctx.restore();
   });
 
@@ -88,6 +92,15 @@ function drawWheel() {
   ctx.lineWidth = 6;
   ctx.strokeStyle = "#ffffff";
   ctx.stroke();
+}
+
+// Largest font size (down to a minimum) at which the label fits in its slice.
+function fitFont(ctx, text, maxWidth) {
+  for (let size = 26; size > 12; size--) {
+    ctx.font = `600 ${size}px Quicksand, sans-serif`;
+    if (ctx.measureText(text).width <= maxWidth) return ctx.font;
+  }
+  return "600 12px Quicksand, sans-serif";
 }
 
 // Rotates the wheel so the given prize ends up under the pointer at the top.
