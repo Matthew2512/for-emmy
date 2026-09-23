@@ -6,12 +6,9 @@
 const PRIZES = [
   "Dinner date 🍝",
   "Movie night 🎬",
-  "Massage 💆",
   "Surprise gift 🎁",
-  "Breakfast in bed 🥞",
   "Shopping trip 🛍️",
   "Dessert run 🍰",
-  "Picnic day 🧺",
 ];
 
 // SHA-256 of the password needed to reset a month's spin, so the password
