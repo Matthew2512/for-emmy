@@ -1,7 +1,7 @@
-// The one secret audio behind this page. Drop the file at audio/secret.mp3
+// The one secret audio behind this page. Drop the file at audio/secret.mp4
 // (or change SECRET_AUDIO_SRC below to match whatever you name it).
 const PASSWORD = "foodieadventures";
-const SECRET_AUDIO_SRC = "audio/secret.mp3";
+const SECRET_AUDIO_SRC = "audio/secret.mp4";
 
 const lockCard = document.getElementById("lock-card");
 const secretCard = document.getElementById("secret-card");

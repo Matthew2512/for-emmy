@@ -5,17 +5,17 @@ const STORIES = {
   story1: {
     emoji: "🌙",
     label: "Goodnight, Little Star",
-    src: "audio/story1.mp3",
+    src: "audio/story1.mp4",
   },
   story2: {
     emoji: "🍃",
     label: "The Sleepy Matcha Forest",
-    src: "audio/story2.mp3",
+    src: "audio/story2.mp4",
   },
   story3: {
     emoji: "☁️",
     label: "The Cloud Who Couldn't Sleep",
-    src: "audio/story3.mp3",
+    src: "audio/story3.mp4",
   },
 };
 
