@@ -1,4 +1,4 @@
-const CACHE_NAME = "for-emmy-v4";
+const CACHE_NAME = "for-emmy-v5";
 const CORE_FILES = [
   "index.html",
   "stories.html",

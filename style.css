@@ -20,6 +20,10 @@ html, body {
   height: 100%;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 body {
   font-family: 'Quicksand', sans-serif;
   color: var(--text-main);
@@ -505,6 +509,47 @@ h2 {
 .luckydraw-history-prize {
   font-weight: 600;
   text-align: right;
+}
+
+.luckydraw-edit {
+  margin-top: 16px;
+  text-align: left;
+}
+
+.luckydraw-edit #edit-toggle {
+  display: block;
+  margin: 0 auto;
+}
+
+.luckydraw-edit .wishlist-form {
+  margin: 12px 0 0;
+}
+
+.luckydraw-edit textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 2px solid var(--blush-light);
+  background: #ffffff;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 15px;
+  color: var(--text-main);
+  resize: vertical;
+}
+
+.luckydraw-edit textarea:focus {
+  outline: none;
+  border-color: var(--blush-mid);
+}
+
+.wishlist-form button.reset-spin-btn {
+  background: #ffffff;
+  color: var(--blush-deep);
+  border: 2px solid var(--blush-light);
+}
+
+.wishlist-form button.reset-spin-btn:hover {
+  background: var(--blush-light);
 }
 
 /* places to visit */
