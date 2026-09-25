@@ -14,7 +14,7 @@ const STORIES = {
   },
   story3: {
     emoji: "☁️",
-    label: "The Cloud Who Couldn't Sleep",
+    label: "Beauty and the beast",
     src: "audio/story3.mp4",
   },
 };
