@@ -3,17 +3,14 @@
 // You can add as many stories as you like — a button is created for each one automatically.
 const STORIES = {
   story1: {
-    emoji: "🌙",
     label: "Cinderella",
     src: "audio/story1.mp4",
   },
   story2: {
-    emoji: "🍃",
     label: "Rapunzel",
     src: "audio/story2.mp4",
   },
   story3: {
-    emoji: "☁️",
     label: "Beauty and the beast",
     src: "audio/story3.mp4",
   },
@@ -31,7 +28,6 @@ Object.entries(STORIES).forEach(([key, story]) => {
   btn.className = "story-btn";
   btn.dataset.story = key;
   btn.innerHTML = `
-    <span class="story-emoji">${story.emoji}</span>
     <span class="mood-label">${story.label}</span>
   `;
   btn.addEventListener("click", () => showStory(key));

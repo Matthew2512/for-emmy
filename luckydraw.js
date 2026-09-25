@@ -4,11 +4,10 @@
 
 // Edit these to change what's on the wheel.
 const PRIZES = [
-  "Dinner date ",
+  "Fuggler ",
   "Movie night",
   "Surprise gift",
-  "Shopping trip",
-  "Dessert run",
+  "Popmart",
 ];
 
 // SHA-256 of the password needed to reset a month's spin, so the password
